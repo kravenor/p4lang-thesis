@@ -9,6 +9,8 @@ services:
 
     sandbox:
         build: sandbox/
+        depends_on: 
+            - server
         ports: 
             - "6040:80"
         volumes:
@@ -17,6 +19,8 @@ services:
             - net1
     client:
         build: client/
+        depends_on: 
+            - sandbox
         networks:
             - net1 
 networks:
