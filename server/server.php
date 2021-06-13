@@ -4,16 +4,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $var1 = $_POST['value'];
     $var2 = $_POST['code'];
     $var3 = $_POST['payment'];
+    $var4 = $_POST['transaction_id'];
 
     if (!isset($var2)) {
         return  header("HTTP/1.0 400 Bad Request");
     } else {
-        
+
 
 
         $url = 'sandbox/sandbox.php';
 
-        $myvars = 'value=' . $var1 . '&url=' . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'] . '&payment=' . $var3;
+        $myvars = 'value=' . $var1 . '&url=' . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'] . '&payment=' . $var3 . '&transactionID=' . $var4;
 
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_POST, 1);
@@ -25,15 +26,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $response = curl_exec($ch);
         $response = json_decode($response, true);
         if ($response['message'] == 'OK') {
-            echo $response['payment'].'<br/>'.PHP_EOL;
+            echo $response['transactionID'] .' ';
+            echo $response['payment'] . '<br/>' . PHP_EOL;
             echo 'Payment succesfull';
-            
         } else {
             echo 'Error payment';
-            echo '<p>'.$response['payment'].':  '. $response['message'].'</p>';
+            echo '<p>' . $response['payment'] . ':  ' . $response['message'] . '</p>';
         }
         curl_close($ch);
     }
-}else{
+} else {
     http_response_code(401);
 }

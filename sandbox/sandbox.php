@@ -4,6 +4,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $var1 = $_POST['value'];
     $var2 = $_POST['url'];
     $var3 = $_POST['payment'];
+    $transactionID = $_POST['transactionID'];
 
     $payArray = ['Credit Card', 'Paypal', 'ApplePay'];
     $response = array();
@@ -11,6 +12,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $response = [
             "value" => $var1,
             "payment" => $var3,
+            "transactionID" => $transactionID,
             "message" => "Payment method not accepted"
         ];
     } else {
@@ -19,12 +21,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $response = [
                 "value" => $var1,
                 "payment" => $var3,
+                "transactionID" =>$transactionID,
                 "message" => "Too low. You need to spend much more"
             ];
         } else {
             $response = [
                 "value" => $var1,
                 "payment" => $var3,
+                "transactionID" =>$transactionID,
                 "message" => "OK"
             ];
         }

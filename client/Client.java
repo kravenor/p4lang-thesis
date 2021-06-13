@@ -21,6 +21,8 @@ public class Client extends Thread {
             parameters.put("payment", "Credit Card");
             parameters.put("code", "1x21");
 
+            parameters.put("transaction_id", Thread.currentThread().getName());
+
             con.setDoOutput(true);
 
             DataOutputStream out = new DataOutputStream(con.getOutputStream());
@@ -34,6 +36,7 @@ public class Client extends Thread {
             StringBuffer content = new StringBuffer();
             while ((inputLine = in.readLine()) != null) {
                 content.append(inputLine);
+                System.out.println(inputLine);
             }
             in.close();
 
