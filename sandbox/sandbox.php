@@ -7,36 +7,37 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $transactionID = $_POST['transactionID'];
 
     $payArray = ['Credit Card', 'Paypal', 'ApplePay'];
-    $response = array();
+   
+    $response = '<?xml version="1.0" encoding="utf-8"?>';
+    
     if (!in_array($var3, $payArray)) {
-        $response = [
-            "value" => $var1,
-            "payment" => $var3,
-            "transactionID" => $transactionID,
-            "message" => "Payment method not accepted"
-        ];
+        $response .='<response>
+            <value>'.$var1.'</value>
+            <payment>'.$var3.'</payment>
+            <transactionID>'.$transactionID.'</transactionID>
+            <message>"Payment method not accepted"</message>
+        </response>';
     } else {
-
         if ($var1 < 50) {
-            $response = [
-                "value" => $var1,
-                "payment" => $var3,
-                "transactionID" =>$transactionID,
-                "message" => "Too low. You need to spend much more"
-            ];
+            $response .='<response>
+            <value>'.$var1.'</value>
+            <payment>'.$var3.'</payment>
+            <transactionID>'.$transactionID.'</transactionID>
+            <message>"Too low. You need to spend much more"</message>
+        </response>';
         } else {
-            $response = [
-                "value" => $var1,
-                "payment" => $var3,
-                "transactionID" =>$transactionID,
-                "message" => "OK"
-            ];
+            $response .='<response>
+            <value>'.$var1.'</value>
+            <payment>'.$var3.'</payment>
+            <transactionID>'.$transactionID.'</transactionID>
+            <message>"OK"</message>
+        </response>';
         }
     }
-    sleep(rand(1, 10));
+    sleep(rand(1, 40));
 
-    header("Content-Type: application/json");
-    echo json_encode($response);
+    header("Content-type: text/xml; charset=utf-8");
+    echo $response;
 } else {
     http_response_code(401);
 }
