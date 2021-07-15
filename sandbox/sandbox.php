@@ -6,7 +6,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $var3 = $_POST['payment'];
     $transactionID = $_POST['transactionID'];
 
-    $payArray = ['Credit Card', 'Paypal', 'ApplePay'];
+    $payArray = ['Credit Card', 'PayPal', 'ApplePay'];
    
     $response = '<?xml version="1.0" encoding="utf-8"?>';
     

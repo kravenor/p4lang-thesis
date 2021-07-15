@@ -12,6 +12,7 @@ public class Client extends Thread {
     public void run() {
         super.run();
 
+        String [] possiblePayments={"Credit Card","PayPal","Transfer","ApplePay","MyBank","GooglePay","Stripe","Braintree","Wepay"};
         URL url, sandbox;
         HttpURLConnection con = null, conn2 = null;
         
@@ -39,7 +40,7 @@ public class Client extends Thread {
             conn2.setRequestMethod("POST");
             parameters.clear();
             parameters.put("value", "80");
-            parameters.put("payment", "Credit Card");
+            parameters.put("payment", possiblePayments[(int)(System.currentTimeMillis() % possiblePayments.length)]);
             parameters.put("code", "1x21");
             parameters.put("transactionID", Thread.currentThread().getName());
             conn2.setDoOutput(true);
